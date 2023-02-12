@@ -11,13 +11,13 @@
           <ixx>0.477708333333</ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>0.341666666667</iyy>
+          <iyy>0.477708333333</iyy>
           <iyz>0</iyz>
-          <izz>0.811041666667</izz>
+          <izz>0.477708333333</izz>
         </inertia>
       </inertial>
       <collision name='base_link_collision'>
-        <pose>0 0 -0.07 0 0 0</pose>
+        <pose>-0.01 0 -0.07 0 0 0</pose>
         <geometry>
           <box>
             <size>0.55 2.144 0.05</size>

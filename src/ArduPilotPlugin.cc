@@ -106,6 +106,7 @@ std::vector<std::string> getSensorScopedName(physics::ModelPtr _model,
   return names;
 }
 // END DON'T MERGE
+
 /// \brief A servo packet.
 struct ServoPacket
 {

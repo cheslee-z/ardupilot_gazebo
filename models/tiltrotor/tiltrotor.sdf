@@ -6,18 +6,18 @@
       <pose>0 0 0 0 0 0</pose>
       <inertial>
         <pose>0 0 0 0 0 0</pose>
-        <mass>1.5</mass>
+        <mass>3</mass>
         <inertia>
-          <ixx>0.197563</ixx>
+          <ixx>0.477708333333</ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>0.1458929</iyy>
+          <iyy>0.477708333333</iyy>
           <iyz>0</iyz>
-          <izz>0.1477</izz>
+          <izz>0.477708333333</izz>
         </inertia>
       </inertial>
       <collision name='base_link_collision'>
-        <pose>-0.01 0 -0.08 0 0 0</pose>
+        <pose>-0.01 0 -0.07 0 0 0</pose>
         <geometry>
           <box>
             <size>0.55 2.144 0.05</size>
@@ -26,13 +26,15 @@
         <surface>
           <contact>
             <ode>
-              <max_vel>10</max_vel>
-              <min_depth>0.01</min_depth>
+              <kp>100000</kp>
+              <kd>1.0</kd>
+              <max_vel>0.1</max_vel>
+              <min_depth>0.001</min_depth>
             </ode>
           </contact>
-          <!--<friction>
+          <friction>
             <ode/>
-          </friction>-->
+          </friction>
         </surface>
       </collision>
       <visual name='base_link_visual'>
@@ -144,17 +146,17 @@
     </link>
     <link name='tiltrotor/gps_link'>
       <inertial>
-          <pose>0 0 0 0 0 0</pose>
-          <mass>0.015</mass>
-          <inertia>
-            <ixx>0.00001</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>0.00002</iyy>
-            <iyz>0</iyz>
-            <izz>0.00002</izz>
-          </inertia>
-        </inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.015</mass>
+        <inertia>
+          <ixx>0.00001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00002</iyy>
+          <iyz>0</iyz>
+          <izz>0.00002</izz>
+        </inertia>
+      </inertial>
       <sensor name="gps_sensor" type="gps">
         <pose>0 0 0  0 0 0</pose>
         <update_rate>10.0</update_rate>
@@ -213,9 +215,9 @@
           <ixx>1e-05</ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>1e-05</iyy>
+          <iyy>2e-05</iyy>
           <iyz>0</iyz>
-          <izz>1e-05</izz>
+          <izz>2e-05</izz>
         </inertia>
       </inertial>
       <sensor name="imu_sensor" type="imu">
@@ -242,8 +244,7 @@
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
     </joint>
-
-
+  
     <link name='motor_0'>
       <pose>0.35 -0.35 0.02 0 0 0</pose>
       <inertial>
@@ -648,8 +649,8 @@
       </axis>
     </joint>
 
-<link name='motor_3'>
-       <pose>-0.35 -0.35 0.02 0 0 0</pose>
+    <link name='motor_3'>
+      <pose>-0.35 -0.35 0.02 0 0 0</pose>
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -964,15 +965,13 @@
       <cda_stall>-0.9233984055</cda_stall>
       <cma_stall>0</cma_stall>
       <cp>-0.05 0.3 0.05</cp>
-      <area>0.12</area>
+      <area>0.50</area>
       <air_density>1.2041</air_density>
       <forward>1 0 0</forward>
       <upward>0 0 1</upward>
       <link_name>base_link</link_name>
-      <control_joint_name>
-        left_elevon_joint
-      </control_joint_name>
-      <control_joint_rad_to_cl>-0.5</control_joint_rad_to_cl>
+      <control_joint_name>tiltrotor::left_elevon_joint</control_joint_name>
+      <control_joint_rad_to_cl>-1.0</control_joint_rad_to_cl>
     </plugin>
     <plugin name="right_wing" filename="libLiftDragPlugin.so">
       <a0>0.05984281113</a0>
@@ -984,15 +983,13 @@
       <cda_stall>-0.9233984055</cda_stall>
       <cma_stall>0</cma_stall>
       <cp>-0.05 -0.3 0.05</cp>
-      <area>0.12</area>
+      <area>0.50</area>
       <air_density>1.2041</air_density>
       <forward>1 0 0</forward>
       <upward>0 0 1</upward>
       <link_name>base_link</link_name>
-      <control_joint_name>
-        right_elevon_joint
-      </control_joint_name>
-      <control_joint_rad_to_cl>-0.5</control_joint_rad_to_cl>
+      <control_joint_name>tiltrotor::right_elevon_joint</control_joint_name>
+      <control_joint_rad_to_cl>-1.0</control_joint_rad_to_cl>
     </plugin>
     <plugin name="elevator" filename="libLiftDragPlugin.so">
       <a0>-0.2</a0>
@@ -1009,10 +1006,8 @@
       <forward>1 0 0</forward>
       <upward>0 0 1</upward>
       <link_name>base_link</link_name>
-      <control_joint_name>
-        elevator_joint
-      </control_joint_name>
-      <control_joint_rad_to_cl>-4.0</control_joint_rad_to_cl>
+      <control_joint_name>tiltrotor::elevator_joint</control_joint_name>
+      <control_joint_rad_to_cl>-12.0</control_joint_rad_to_cl>
     </plugin>
     <plugin name="rudder" filename="libLiftDragPlugin.so">
       <a0>0.0</a0>
@@ -1030,73 +1025,133 @@
       <upward>0 1 0</upward>
       <link_name>base_link</link_name>
     </plugin>
-    <plugin name='front_right_motor_model' filename='libgazebo_motor_model.so'>
-      <robotNamespace></robotNamespace>
-      <jointName>rotor_0_joint</jointName>
-      <linkName>rotor_0</linkName>
-      <turningDirection>ccw</turningDirection>
-      <timeConstantUp>0.0125</timeConstantUp>
-      <timeConstantDown>0.025</timeConstantDown>
-      <maxRotVelocity>1500</maxRotVelocity>
-      <motorConstant>8.54858e-06</motorConstant>
-      <momentConstant>0.06</momentConstant>
-      <commandSubTopic>/gazebo/command/motor_speed</commandSubTopic>
-      <motorNumber>0</motorNumber>
-      <rotorDragCoefficient>0.0000806428</rotorDragCoefficient>
-      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
-      <motorSpeedPubTopic>/motor_speed/0</motorSpeedPubTopic>
-      <rotorVelocitySlowdownSim>20</rotorVelocitySlowdownSim>
+    <plugin name="rotor_0_blade_1" filename="libLiftDragPlugin.so">
+      <a0>0.3</a0>
+      <alpha_stall>1.4</alpha_stall>
+      <cla>4.2500</cla>
+      <cda>0.10</cda>
+      <cma>0.00</cma>
+      <cla_stall>-0.025</cla_stall>
+      <cda_stall>0.0</cda_stall>
+      <cma_stall>0.0</cma_stall>
+      <area>0.002</area>
+      <air_density>1.2041</air_density>
+      <cp>0.084 0 0</cp>
+      <forward>0 1 0</forward>
+      <upward>0 0 1</upward>
+      <link_name>tiltrotor::rotor_0</link_name>
     </plugin>
-    <plugin name='back_left_motor_model' filename='libgazebo_motor_model.so'>
-      <robotNamespace></robotNamespace>
-      <jointName>rotor_1_joint</jointName>
-      <linkName>rotor_1</linkName>
-      <turningDirection>ccw</turningDirection>
-      <timeConstantUp>0.0125</timeConstantUp>
-      <timeConstantDown>0.025</timeConstantDown>
-      <maxRotVelocity>1500</maxRotVelocity>
-      <motorConstant>8.54858e-06</motorConstant>
-      <momentConstant>0.06</momentConstant>
-      <commandSubTopic>/gazebo/command/motor_speed</commandSubTopic>
-      <motorNumber>1</motorNumber>
-      <rotorDragCoefficient>0.0000806428</rotorDragCoefficient>
-      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
-      <motorSpeedPubTopic>/motor_speed/1</motorSpeedPubTopic>
-      <rotorVelocitySlowdownSim>20</rotorVelocitySlowdownSim>
+    <plugin name="rotor_0_blade_2" filename="libLiftDragPlugin.so">
+      <a0>0.3</a0>
+      <alpha_stall>1.4</alpha_stall>
+      <cla>4.2500</cla>
+      <cda>0.10</cda>
+      <cma>0.00</cma>
+      <cla_stall>-0.025</cla_stall>
+      <cda_stall>0.0</cda_stall>
+      <cma_stall>0.0</cma_stall>
+      <area>0.002</area>
+      <air_density>1.2041</air_density>
+      <cp>-0.084 0 0</cp>
+      <forward>0 -1 0</forward>
+      <upward>0 0 1</upward>
+      <link_name>tiltrotor::rotor_0</link_name>
     </plugin>
-    <plugin name='front_left_motor_model' filename='libgazebo_motor_model.so'>
-      <robotNamespace></robotNamespace>
-      <jointName>rotor_2_joint</jointName>
-      <linkName>rotor_2</linkName>
-      <turningDirection>cw</turningDirection>
-      <timeConstantUp>0.0125</timeConstantUp>
-      <timeConstantDown>0.025</timeConstantDown>
-      <maxRotVelocity>1500</maxRotVelocity>
-      <motorConstant>8.54858e-06</motorConstant>
-      <momentConstant>0.06</momentConstant>
-      <commandSubTopic>/gazebo/command/motor_speed</commandSubTopic>
-      <motorNumber>2</motorNumber>
-      <rotorDragCoefficient>0.0000806428</rotorDragCoefficient>
-      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
-      <motorSpeedPubTopic>/motor_speed/2</motorSpeedPubTopic>
-      <rotorVelocitySlowdownSim>20</rotorVelocitySlowdownSim>
+    <plugin name="rotor_1_blade_1" filename="libLiftDragPlugin.so">
+      <a0>0.3</a0>
+      <alpha_stall>1.4</alpha_stall>
+      <cla>4.2500</cla>
+      <cda>0.10</cda>
+      <cma>0.00</cma>
+      <cla_stall>-0.025</cla_stall>
+      <cda_stall>0.0</cda_stall>
+      <cma_stall>0.0</cma_stall>
+      <area>0.002</area>
+      <air_density>1.2041</air_density>
+      <cp>0.084 0 0</cp>
+      <forward>0 1 0</forward>
+      <upward>0 0 1</upward>
+      <link_name>tiltrotor::rotor_1</link_name>
     </plugin>
-    <plugin name='back_right_motor_model' filename='libgazebo_motor_model.so'>
-      <robotNamespace></robotNamespace>
-      <jointName>rotor_3_joint</jointName>
-      <linkName>rotor_3</linkName>
-      <turningDirection>cw</turningDirection>
-      <timeConstantUp>0.0125</timeConstantUp>
-      <timeConstantDown>0.025</timeConstantDown>
-      <maxRotVelocity>1500</maxRotVelocity>
-      <motorConstant>8.54858e-06</motorConstant>
-      <momentConstant>0.06</momentConstant>
-      <commandSubTopic>/gazebo/command/motor_speed</commandSubTopic>
-      <motorNumber>3</motorNumber>
-      <rotorDragCoefficient>0.0000806428</rotorDragCoefficient>
-      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
-      <motorSpeedPubTopic>/motor_speed/3</motorSpeedPubTopic>
-      <rotorVelocitySlowdownSim>20</rotorVelocitySlowdownSim>
+    <plugin name="rotor_1_blade_2" filename="libLiftDragPlugin.so">
+      <a0>0.3</a0>
+      <alpha_stall>1.4</alpha_stall>
+      <cla>4.2500</cla>
+      <cda>0.10</cda>
+      <cma>0.00</cma>
+      <cla_stall>-0.025</cla_stall>
+      <cda_stall>0.0</cda_stall>
+      <cma_stall>0.0</cma_stall>
+      <area>0.002</area>
+      <air_density>1.2041</air_density>
+      <cp>-0.084 0 0</cp>
+      <forward>0 -1 0</forward>
+      <upward>0 0 1</upward>
+      <link_name>tiltrotor::rotor_1</link_name>
+    </plugin>
+    <plugin name="rotor_2_blade_1" filename="libLiftDragPlugin.so">
+      <a0>0.3</a0>
+      <alpha_stall>1.4</alpha_stall>
+      <cla>4.2500</cla>
+      <cda>0.10</cda>
+      <cma>0.00</cma>
+      <cla_stall>-0.025</cla_stall>
+      <cda_stall>0.0</cda_stall>
+      <cma_stall>0.0</cma_stall>
+      <area>0.002</area>
+      <air_density>1.2041</air_density>
+      <cp>0.084 0 0</cp>
+      <forward>0 -1 0</forward>
+      <upward>0 0 1</upward>
+      <link_name>tiltrotor::rotor_2</link_name>
+    </plugin>
+    <plugin name="rotor_2_blade_2" filename="libLiftDragPlugin.so">
+      <a0>0.3</a0>
+      <alpha_stall>1.4</alpha_stall>
+      <cla>4.2500</cla>
+      <cda>0.10</cda>
+      <cma>0.00</cma>
+      <cla_stall>-0.025</cla_stall>
+      <cda_stall>0.0</cda_stall>
+      <cma_stall>0.0</cma_stall>
+      <area>0.002</area>
+      <air_density>1.2041</air_density>
+      <cp>-0.084 0 0</cp>
+      <forward>0 1 0</forward>
+      <upward>0 0 1</upward>
+      <link_name>tiltrotor::rotor_2</link_name>
+    </plugin>
+    <plugin name="rotor_3_blade_1" filename="libLiftDragPlugin.so">
+      <a0>0.3</a0>
+      <alpha_stall>1.4</alpha_stall>
+      <cla>4.2500</cla>
+      <cda>0.10</cda>
+      <cma>0.00</cma>
+      <cla_stall>-0.025</cla_stall>
+      <cda_stall>0.0</cda_stall>
+      <cma_stall>0.0</cma_stall>
+      <area>0.002</area>
+      <air_density>1.2041</air_density>
+      <cp>0.084 0 0</cp>
+      <forward>0 -1 0</forward>
+      <upward>0 0 1</upward>
+      <link_name>tiltrotor::rotor_3</link_name>
+    </plugin>
+    <plugin name="rotor_3_blade_2" filename="libLiftDragPlugin.so">
+      <a0>0.3</a0>
+      <alpha_stall>1.4</alpha_stall>
+      <cla>4.2500</cla>
+      <cda>0.10</cda>
+      <cma>0.00</cma>
+      <cla_stall>-0.025</cla_stall>
+      <cda_stall>0.0</cda_stall>
+      <cma_stall>0.0</cma_stall>
+      <area>0.002</area>
+      <air_density>1.2041</air_density>
+      <cp>-0.084 0 0</cp>
+      <forward>0 1 0</forward>
+      <upward>0 0 1</upward>
+      <link_name>tiltrotor::rotor_3</link_name>
     </plugin>
 
     <plugin name="ardupilot_plugin" filename="libArduPilotPlugin.so">
@@ -1107,8 +1162,8 @@
       <gazeboXYZToNED>0 0 0 3.141593 0 0</gazeboXYZToNED>
       <imuName>tiltrotor::tiltrotor/imu_link::imu_sensor</imuName>
       <connectionTimeoutMaxCount>5</connectionTimeoutMaxCount>
-      <control channel="rotor0">
-        <multiplier>1000</multiplier>
+      <control channel="0">
+        <multiplier>1</multiplier>
         <offset>0</offset>
         <type>VELOCITY</type>
         <p_gain>0.2</p_gain>
@@ -1121,8 +1176,8 @@
         <jointName>tiltrotor::rotor_0_joint</jointName>
         <rotorVelocitySlowdownSim>1</rotorVelocitySlowdownSim>
       </control>
-      <control channel="rotor1">
-        <multiplier>1000</multiplier>
+      <control channel="1">
+        <multiplier>1</multiplier>
         <offset>0</offset>
         <type>VELOCITY</type>
         <p_gain>0.2</p_gain>
@@ -1135,8 +1190,8 @@
         <jointName>tiltrotor::rotor_1_joint</jointName>
         <rotorVelocitySlowdownSim>1</rotorVelocitySlowdownSim>
       </control>
-      <control channel="rotor2">
-        <multiplier>-1000</multiplier>
+      <control channel="2">
+        <multiplier>-1</multiplier>
         <offset>0</offset>
         <type>VELOCITY</type>
         <p_gain>0.2</p_gain>
@@ -1149,8 +1204,8 @@
         <jointName>tiltrotor::rotor_2_joint</jointName>
         <rotorVelocitySlowdownSim>1</rotorVelocitySlowdownSim>
       </control>
-      <control channel="rotor3">
-        <multiplier>-1000</multiplier>
+      <control channel="3">
+        <multiplier>-1</multiplier>
         <offset>0</offset>
         <type>VELOCITY</type>
         <p_gain>0.2</p_gain>
@@ -1163,11 +1218,11 @@
         <jointName>tiltrotor::rotor_3_joint</jointName>
         <rotorVelocitySlowdownSim>1</rotorVelocitySlowdownSim>
       </control>
-      <control channel="motor0_tilt">
+      <control channel="4">
         <multiplier>1</multiplier>
         <offset>0</offset>
         <type>POSITION</type>
-        <p_gain>100</p_gain>
+        <p_gain>1</p_gain>
         <i_gain>0</i_gain>
         <d_gain>0</d_gain>
         <i_max>0</i_max>
@@ -1177,11 +1232,11 @@
         <jointName>tiltrotor::motor_0_joint</jointName>
         <rotorVelocitySlowdownSim>1</rotorVelocitySlowdownSim>
       </control>
-      <control channel="motor1_tilt">
+      <control channel="5">
         <multiplier>1</multiplier>
         <offset>0</offset>
         <type>POSITION</type>
-        <p_gain>100</p_gain>
+        <p_gain>1</p_gain>
         <i_gain>0</i_gain>
         <d_gain>0</d_gain>
         <i_max>0</i_max>
@@ -1191,11 +1246,11 @@
         <jointName>tiltrotor::motor_1_joint</jointName>
         <rotorVelocitySlowdownSim>1</rotorVelocitySlowdownSim>
       </control>
-      <control channel="motor2_tilt">
+      <control channel="6">
         <multiplier>1</multiplier>
         <offset>0</offset>
         <type>POSITION</type>
-        <p_gain>100</p_gain>
+        <p_gain>1</p_gain>
         <i_gain>0</i_gain>
         <d_gain>0</d_gain>
         <i_max>0</i_max>
@@ -1205,11 +1260,11 @@
         <jointName>tiltrotor::motor_2_joint</jointName>
         <rotorVelocitySlowdownSim>1</rotorVelocitySlowdownSim>
       </control>      
-      <control channel="motor3_tilt">
+      <control channel="7">
         <multiplier>1</multiplier>
         <offset>0</offset>
         <type>POSITION</type>
-        <p_gain>100</p_gain>
+        <p_gain>1</p_gain>
         <i_gain>0</i_gain>
         <d_gain>0</d_gain>
         <i_max>0</i_max>
@@ -1219,7 +1274,7 @@
         <jointName>tiltrotor::motor_3_joint</jointName>
         <rotorVelocitySlowdownSim>1</rotorVelocitySlowdownSim>
       </control>
-      <control channel="left_elevon">
+      <control channel="8">
         <multiplier>1</multiplier>
         <offset>-0.5</offset>
         <type>POSITION</type>
@@ -1232,7 +1287,7 @@
         <cmd_min>-1</cmd_min>
         <jointName>tiltrotor::left_elevon_joint</jointName>
       </control>
-      <control channel="right_elevon">
+      <control channel="9">
         <multiplier>1</multiplier>
         <offset>-0.5</offset>
         <type>POSITION</type>
@@ -1245,7 +1300,7 @@
         <cmd_min>-1</cmd_min>
         <jointName>tiltrotor::right_elevon_joint</jointName>
       </control>
-      <control channel="elevator">
+      <control channel="10">
         <multiplier>1</multiplier>
         <offset>-0.5</offset>
         <type>POSITION</type>
